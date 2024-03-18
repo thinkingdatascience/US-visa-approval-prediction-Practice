@@ -1,10 +1,9 @@
 import os
 from pathlib import Path
 
-project_name="us_visa"
+project_name = "us_visa"
 
 list_of_files = [
-
     # Step by Step code will be written
     f"{project_name}/__init__.py",
     f"{project_name}/components/__init__.py",
@@ -14,44 +13,41 @@ list_of_files = [
     f"{project_name}/components/model_trainer.py",
     f"{project_name}/components/model_evaluation.py",
     f"{project_name}/components/model_pusher.py",
-    
     # For Input and output File path
     f"{project_name}/entity/__init__.py",
     f"{project_name}/entity/artifact_entity.py",
     f"{project_name}/entity/config_entity.py",
-    
     f"{project_name}/configuration/__init__.py",
-    
     f"{project_name}/constants/__init__.py",
-
     # for Raising exceptions
     f"{project_name}/exception/__init__.py",
-    
     # for logging the steps in the log dir
     f"{project_name}/logger/__init__.py",
-    
-
     f"{project_name}/pipeline/__init__.py",
     f"{project_name}/pipeline/training_pipeline",
     f"{project_name}/pipeline/prediction_pipeline",
-
     f"{project_name}/utils/__init__.py",
     f"{project_name}/utils/main_utils.py",
-    
     # Additional Files
-    "app.py","requirements.txt","Dockerfile",".dockerignore","demo.py","setup.py",
-    "config/model.yaml","config/schema.yaml"
-
+    "app.py",
+    "requirements.txt",
+    "Dockerfile",
+    ".dockerignore",
+    "demo.py",
+    "setup.py",
+    "config/model.yaml",
+    "config/schema.yaml",
 ]
 
 for filepath in list_of_files:
     filepath = Path(filepath)
-    filedir,filename = os.path.split(filepath)
+    filedir, filename = os.path.split(filepath)
 
-    if filedir !="":
-        os.makedirs(filedir,exist_ok=True)
+    if filedir != "":
+        os.makedirs(filedir, exist_ok=True)
 
-    if (not os.path.exists(filepath)) or (os.path.getsize(filepath)==0):
-        with open(filepath,"w") as f:
+    if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
+        with open(filepath, "w") as f:
             pass
-    else: print(f"File is already present at: {filepath}")
+    else:
+        print(f"File is already present at: {filepath}")

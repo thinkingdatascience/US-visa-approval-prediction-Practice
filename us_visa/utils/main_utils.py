@@ -11,7 +11,6 @@ from us_visa.logger import logging
 
 # FOR YAML FILES
 def read_yaml_file(file_path: str) -> dict:
-
     try:
         with open(file=file_path, mode="rb") as yaml_file:
             return yaml.safe_load(yaml_file)
@@ -21,7 +20,6 @@ def read_yaml_file(file_path: str) -> dict:
 
 
 def write_yaml_file(file_path: str, content: object, replace: bool = False) -> None:
-
     try:
         if replace:
             if os.path.exists(file_path):
@@ -37,7 +35,6 @@ def write_yaml_file(file_path: str, content: object, replace: bool = False) -> N
 
 # FOR OBJECTS
 def load_object(file_path: str) -> object:
-
     logging.info("Entered the load object method of utils")
     try:
         with open(file=file_path, mode="rb") as fileobj:
@@ -51,7 +48,6 @@ def load_object(file_path: str) -> object:
 
 
 def save_object(file_path: str, object: object) -> None:
-
     logging.info("Entered the save object method of utils")
     try:
         with open(file=file_path, mode="wb") as fileobj:
@@ -65,7 +61,6 @@ def save_object(file_path: str, object: object) -> None:
 
 # FOR NUMPY FILES
 def load_numpy_array_data(file_path: str) -> np.array:
-
     try:
         with open(file=file_path, mode="rb") as fileobj:
             return np.load(file=fileobj)
@@ -75,7 +70,6 @@ def load_numpy_array_data(file_path: str) -> np.array:
 
 
 def save_numpy_array_data(file_path: str, array: np.array):
-
     try:
         dir_path = os.path.dirname(file_path)
         os.makedirs(name=dir_path, exist_ok=True)
@@ -88,7 +82,6 @@ def save_numpy_array_data(file_path: str, array: np.array):
 
 # FOR DROPPING COLUMNS
 def drop_columns(df: DataFrame, columns: list) -> DataFrame:
-
     logging.info("Entered the drop column method of utils")
     try:
         df.drop(columns=columns, axis=1)

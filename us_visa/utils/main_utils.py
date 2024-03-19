@@ -11,11 +11,7 @@ from us_visa.logger import logging
 
 # FOR YAML FILES
 def read_yaml_file(file_path: str) -> dict:
-    """Args:
-        file_path (str): _description_
-    Returns:
-        dict: _description_
-    """
+
     try:
         with open(file=file_path, mode="rb") as yaml_file:
             return yaml.safe_load(yaml_file)
@@ -25,12 +21,7 @@ def read_yaml_file(file_path: str) -> dict:
 
 
 def write_yaml_file(file_path: str, content: object, replace: bool = False) -> None:
-    """
-    Args:
-           file_path (str): _description_
-           content (object): _description_
-           replace (bool, optional): _description_. Defaults to False.
-    """
+
     try:
         if replace:
             if os.path.exists(file_path):
@@ -46,13 +37,7 @@ def write_yaml_file(file_path: str, content: object, replace: bool = False) -> N
 
 # FOR OBJECTS
 def load_object(file_path: str) -> object:
-    """
-    Args:
-        file_path (str): _description_
 
-    Returns:
-        object: _description_
-    """
     logging.info("Entered the load object method of utils")
     try:
         with open(file=file_path, mode="rb") as fileobj:
@@ -66,10 +51,7 @@ def load_object(file_path: str) -> object:
 
 
 def save_object(file_path: str, object: object) -> None:
-    """Args:
-    file_path (str): _description_
-    object (object): _description_
-    """
+
     logging.info("Entered the save object method of utils")
     try:
         with open(file=file_path, mode="wb") as fileobj:
@@ -83,12 +65,7 @@ def save_object(file_path: str, object: object) -> None:
 
 # FOR NUMPY FILES
 def load_numpy_array_data(file_path: str) -> np.array:
-    """
-    Args:
-        file_path (str): _description_
-    Returns:
-        np.array: _description_
-    """
+
     try:
         with open(file=file_path, mode="rb") as fileobj:
             return np.load(file=fileobj)
@@ -98,11 +75,7 @@ def load_numpy_array_data(file_path: str) -> np.array:
 
 
 def save_numpy_array_data(file_path: str, array: np.array):
-    """
-    Args:
-        file_path (str): _description_
-        array (np.array): _description_
-    """
+
     try:
         dir_path = os.path.dirname(file_path)
         os.makedirs(name=dir_path, exist_ok=True)
@@ -115,18 +88,7 @@ def save_numpy_array_data(file_path: str, array: np.array):
 
 # FOR DROPPING COLUMNS
 def drop_columns(df: DataFrame, columns: list) -> DataFrame:
-    """Drops the column(s) from pandas dataframe
 
-    Args:
-        df (DataFrame): _description_
-        columns (list): _description_
-
-    Raises:
-        USVisaException: _description_
-
-    Returns:
-        DataFrame: _description_
-    """
     logging.info("Entered the drop column method of utils")
     try:
         df.drop(columns=columns, axis=1)

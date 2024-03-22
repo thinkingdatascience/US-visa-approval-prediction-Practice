@@ -81,9 +81,9 @@ class DataValidation:
     ) -> bool:
         try:
             data_drift_profile = Profile(sections=[DataDriftProfileSection()])
-            data_drift_profile.calculate(
-                reference_data=reference_df, current_data=current_df
-            )
+
+            data_drift_profile.calculate(reference_df, current_df)
+
             report = data_drift_profile.json()
             json_report = json.loads(report)
 
@@ -96,10 +96,9 @@ class DataValidation:
             n_drifted_features = json_report["data_drift"]["data"]["metrics"][
                 "n_drifted_features"
             ]
-            logging.info(f"{n_drifted_features}/{n_features} drift detected")
 
+            logging.info(f"{n_drifted_features}/{n_features} drift detected.")
             drift_status = json_report["data_drift"]["data"]["metrics"]["dataset_drift"]
-
             return drift_status
 
         except Exception as e:
@@ -107,7 +106,8 @@ class DataValidation:
 
     def initiate_data_validation(self) -> DataValidationArtifact:
         try:
-            validation_error_message = ""
+
+            validation_error_msg = ""
             logging.info("Starting data validation")
             train_df, test_df = (
                 DataValidation.read_data(
@@ -117,48 +117,47 @@ class DataValidation:
                     file_path=self.data_ingestion_artifact.test_file_path
                 ),
             )
+
             status = self.validate_number_of_columns(dataframe=train_df)
-
             logging.info(
-                f"All required columns are prsent in training dataframe: {status}"
+                f"All required columns present in training dataframe: {status}"
             )
             if not status:
-                validation_error_message += f"Columns are missing in training dataframe"
-
+                validation_error_msg += f"Columns are missing in training dataframe."
             status = self.validate_number_of_columns(dataframe=test_df)
-            logging.info(
-                f"All required columns are present in testing dataframe: {status}"
-            )
+
+            logging.info(f"All required columns present in testing dataframe: {status}")
             if not status:
-                validation_error_message += f"Columns are missing in testing dataframe"
+                validation_error_msg += f"Columns are missing in test dataframe."
 
             status = self.is_column_exist(df=train_df)
-            if not status:
-                validation_error_message += f"Columns are missing in training dataframe"
 
+            if not status:
+                validation_error_msg += f"Columns are missing in training dataframe."
             status = self.is_column_exist(df=test_df)
-            if not status:
-                validation_error_message += f"Columns are missing in testing dataframe"
 
-            validation_status = len(validation_error_message) == 0
+            if not status:
+                validation_error_msg += f"columns are missing in test dataframe."
+
+            validation_status = len(validation_error_msg) == 0
 
             if validation_status:
                 drift_status = self.detect_dataset_drift(train_df, test_df)
                 if drift_status:
-                    logging.info("Drift detected")
-                    validation_error_message = "Drift detected"
+                    logging.info(f"Drift detected.")
+                    validation_error_msg = "Drift detected"
                 else:
-                    validation_error_message = "Drift not detected"
+                    validation_error_msg = "Drift not detected"
             else:
-                logging.info(f"Validation error: {validation_error_message}")
+                logging.info(f"Validation_error: {validation_error_msg}")
 
             data_validation_artifact = DataValidationArtifact(
                 validation_status=validation_status,
-                message=validation_error_message,
+                message=validation_error_msg,
                 drift_report_file_path=self.data_validation_config.drift_report_file_path,
             )
-            logging.info(f"Data Validation artifact: {data_validation_artifact}")
 
+            logging.info(f"Data validation artifact: {data_validation_artifact}")
             return data_validation_artifact
 
         except Exception as e:

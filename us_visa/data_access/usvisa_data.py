@@ -8,7 +8,7 @@ import sys
 import numpy as np
 
 
-class USvisaData:
+class USVisaData:
     def __init__(self):
         try:
             self.mongo_client = MongoDBClient(database_name=DATABASE_NAME)

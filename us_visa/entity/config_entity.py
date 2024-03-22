@@ -1,7 +1,7 @@
-from datetime import datetime
 import os
 from us_visa.constants import *
 from dataclasses import dataclass
+from datetime import datetime
 
 TIMESTAMP: str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 
@@ -12,7 +12,7 @@ class TrainingPipelineConfig:
     timestamp: str = TIMESTAMP
 
 
-training_pipeline_config = TrainingPipelineConfig()
+training_pipeline_config: TrainingPipelineConfig = TrainingPipelineConfig()
 
 
 @dataclass
@@ -30,7 +30,6 @@ class DataIngestionConfig:
         data_ingestion_dir, DATA_INGESTION_INGESTED_DIR, TEST_FILE_NAME
     )
     train_test_split_ratio: float = DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
-    collection_name: str = COLLECTION_NAME
 
 
 @dataclass

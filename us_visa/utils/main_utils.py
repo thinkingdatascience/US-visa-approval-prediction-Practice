@@ -50,6 +50,9 @@ def load_object(file_path: str) -> object:
 def save_object(file_path: str, object: object) -> None:
     logging.info("Entered the save object method of utils")
     try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+
         with open(file=file_path, mode="wb") as fileobj:
             dill.dump(obj=object, file=fileobj)
 
@@ -73,6 +76,7 @@ def save_numpy_array_data(file_path: str, array: np.array):
     try:
         dir_path = os.path.dirname(file_path)
         os.makedirs(name=dir_path, exist_ok=True)
+
         with open(file=file_path, mode="wb") as fileobj:
             np.save(file=fileobj, arr=array)
 

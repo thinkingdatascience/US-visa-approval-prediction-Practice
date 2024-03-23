@@ -42,3 +42,25 @@ class DataValidationConfig:
         DATA_VALIDATION_DRIFT_REPORT_DIR,
         DATA_VALIDATION_DRIFT_REPORT_FILE_NAME,
     )
+
+
+@dataclass
+class DataTransformationConfig:
+    data_transformation_dir: str = os.path.join(
+        TrainingPipelineConfig.artifact_dir, DATA_TRANSFORMATION_DIR_NAME
+    )
+    transformed_train_file_path: str = os.path.join(
+        data_transformation_dir,
+        DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+        TRAIN_FILE_NAME_NUMPY,
+    )
+    transformed_test_file_path: str = os.path.join(
+        data_transformation_dir,
+        DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+        TEST_FILE_NAME_NUMPY,
+    )
+    transformed_object_file_path: str = os.path.join(
+        data_transformation_dir,
+        DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
+        PREPROCESSING_OBJECT_FILE_NAME,
+    )

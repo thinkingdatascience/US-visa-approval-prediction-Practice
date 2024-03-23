@@ -14,6 +14,14 @@ ARTIFACT_DIR: str = "artifact"
 FILE_NAME: str = "usvisa.csv"
 TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
+
+TRAIN_FILE_NAME_NUMPY: str = "train.npy"
+TEST_FILE_NAME_NUMPY: str = "test.npy"
+PREPROCESSING_OBJECT_FILE_NAME: str = "preprocessing.pkl"
+TARGET_COLUMN: str = "case_status"
+CURRENT_YEAR = date.today().year
+
+
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
 
 # DATA INGESTION RELATED CONSTANT STARTS WITH "DATA_INGESTION" AND THE VARIABLE NAME
@@ -29,3 +37,8 @@ DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.2
 DATA_VALIDATION_DIR_NAME: str = "data_validation"
 DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+
+# DATA TRANSFORMATION RELATED CONSTANT STARTS WITH "DATA_TRANSFORMATION" AND THE VARIABLE NAME
+DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"

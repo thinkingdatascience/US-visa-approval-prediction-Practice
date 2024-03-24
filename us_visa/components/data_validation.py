@@ -12,7 +12,7 @@ from us_visa.logger import logging
 from us_visa.utils.main_utils import read_yaml_file, write_yaml_file
 from us_visa.entity.config_entity import DataValidationConfig
 from us_visa.entity.artifact_entity import DataValidationArtifact, DataIngestionArtifact
-from us_visa.constants import SCHEMA_FILE_PATH
+from us_visa.constants import SCHEMA_CONFIG_FILE_PATH
 
 
 class DataValidation:
@@ -24,7 +24,7 @@ class DataValidation:
         try:
             self.data_ingestion_artifact = data_ingestion_artifact
             self.data_validation_config = data_validation_config
-            self._schema_config = read_yaml_file(file_path=SCHEMA_FILE_PATH)
+            self._schema_config = read_yaml_file(file_path=SCHEMA_CONFIG_FILE_PATH)
         except Exception as e:
             raise USVisaException(e, sys) from e
 

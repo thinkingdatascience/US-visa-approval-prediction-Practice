@@ -39,3 +39,9 @@ class USvisaModel:
 
         except Exception as e:
             raise USVisaException(e, sys)
+
+    def __repr__(self) -> str:
+        return f"{type(self.trained_model_object).__name__}()"
+
+    def __str__(self) -> str:
+        return f"{type(self.trained_model_object).__name__}()"

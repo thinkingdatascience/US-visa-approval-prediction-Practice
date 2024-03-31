@@ -1,6 +1,5 @@
-from datetime import datetime
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 from us_visa.constants import *
 
 
@@ -39,4 +38,26 @@ class DataValidationConfig:
         data_validation_dir,
         DATA_VALIDATION_DRIFT_REPORT_DIR,
         DATA_VALIDATION_DRIFT_REPORT_FILE_NAME,
+    )
+
+
+@dataclass
+class DataTransformationConfig:
+    data_transformation_dir: str = os.path.join(
+        training_pipeline_config.artifact_dir, DATA_TRANSFORMATION_DIR
+    )
+    transformation_obj_file_path: str = os.path.join(
+        data_transformation_dir,
+        DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
+        PREPROCESSING_OBJ_FILE_NAME,
+    )
+    transformed_train_file_path: str = os.path.join(
+        data_transformation_dir,
+        DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+        TRAIN_FILE_NAME_NUMPY,
+    )
+    transformed_test_file_path: str = os.path.join(
+        data_transformation_dir,
+        DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+        TEST_FILE_NAME_NUMPY,
     )

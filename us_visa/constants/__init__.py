@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 import os
 
 MONGODB_URL_KEY = "MONGODB_URL"
@@ -11,6 +11,14 @@ TIMESTAMP: str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 FILE_NAME = "usvisa.csv"
 TRAIN_FILE_NAME = "train.csv"
 TEST_FILE_NAME = "test.csv"
+
+TRAIN_FILE_NAME_NUMPY = "train.npy"
+TEST_FILE_NAME_NUMPY = "test.npy"
+
+TARGET_COLUMN = "case_status"
+CURRENT_YEAR = date.today().year
+
+PREPROCESSING_OBJ_FILE_NAME = "preprocessing.pkl"
 
 SCHEMA_CONFIG_FILE_PATH = os.path.join("config", "schema.yaml")
 
@@ -26,3 +34,8 @@ DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.2
 DATA_VALIDATION_DIR_NAME: str = "data_validation"
 DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+
+# DATA TRANSFORMATION RELATED CONSTANT START WITH TRANSFORMATION VARIABLE NAME
+DATA_TRANSFORMATION_DIR: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"

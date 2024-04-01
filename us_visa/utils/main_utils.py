@@ -58,6 +58,18 @@ def save_object(file_path: str, object: object):
         raise USvisaException(e, sys)
 
 
+def load_object(file_path: str):
+    logging.info("Entered the load_object method of utils")
+    try:
+        with open(file_path, mode="rb") as file_object:
+            object = dill.load(file_object)
+
+        logging.info("Exited the load_object method of utils")
+        return object
+    except Exception as e:
+        raise USvisaException(e, sys)
+
+
 # NUMPY FILES
 def save_numpy_array_data(file_path: str, array: np.array):
     try:
@@ -65,6 +77,15 @@ def save_numpy_array_data(file_path: str, array: np.array):
         os.makedirs(dir_path, exist_ok=True)
         with open(file_path, "wb") as numpy_file:
             np.save(numpy_file, array)
+
+    except Exception as e:
+        raise USvisaException(e, sys)
+
+
+def load_numpy_array_data(file_path: str):
+    try:
+        with open(file_path, "rb") as numpy_file:
+            return np.load(numpy_file)
 
     except Exception as e:
         raise USvisaException(e, sys)

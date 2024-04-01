@@ -196,7 +196,7 @@ class DataTransformation:
 
                 logging.info("Saved the preprocessor object")
                 save_object(
-                    self.data_transformation_config.transformation_obj_file_path,
+                    self.data_transformation_config.transformed_obj_file_path,
                     preprocessor,
                 )
                 logging.info("Saved TRAINED numpy array")
@@ -210,7 +210,7 @@ class DataTransformation:
                 )
 
                 data_transformation_artifact = DataTransformationArtifact(
-                    transformation_obj_file_path=self.data_transformation_config.transformation_obj_file_path,
+                    transformed_obj_file_path=self.data_transformation_config.transformed_obj_file_path,
                     transformed_train_file_path=self.data_transformation_config.transformed_train_file_path,
                     transformed_test_file_path=self.data_transformation_config.transformed_test_file_path,
                 )

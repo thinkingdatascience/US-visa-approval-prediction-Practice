@@ -33,3 +33,11 @@ class ClassificationMetricsArtifact:
 class ModelTrainerArtifact:
     trained_model_file_path: str
     metric_artifact: ClassificationMetricsArtifact
+
+
+@dataclass
+class ModelEvaluationArtifact:
+    s3_model_path: str
+    trained_model_path: str
+    changed_accuracy: float
+    is_model_accepted: bool

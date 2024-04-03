@@ -3,7 +3,6 @@ import sys
 from us_visa.exception import USvisaException
 
 
-# This is for Model Pusher
 class SimpleStorageService:
 
     def __init__(self):

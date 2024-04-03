@@ -41,3 +41,8 @@ class ModelEvaluationArtifact:
     trained_model_path: str
     changed_accuracy: float
     is_model_accepted: bool
+
+
+class ModelPusherArtifact:
+    bucket_name: str
+    s3_model_file_path: str

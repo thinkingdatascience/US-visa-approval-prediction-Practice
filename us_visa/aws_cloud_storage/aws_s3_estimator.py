@@ -5,7 +5,6 @@ import sys
 from pandas import DataFrame
 
 
-# THIS IS FOR MODEL EVALUATION
 class USvisaEstimator:
     """
     This class is used to save and retrieve us_visas model from s3 bucket and do the prediction

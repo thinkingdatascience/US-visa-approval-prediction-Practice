@@ -106,31 +106,36 @@ class TrainingPipeline:
         self,
         data_transformation_artifact: DataTransformationArtifact,
     ) -> ModelTrainerArtifact:
+        try:
+            model_triner = ModelTrainer(
+                model_trainer_config=self.model_trainer_config,
+                data_transformation_artifact=data_transformation_artifact,
+            )
 
-        model_triner = ModelTrainer(
-            model_trainer_config=self.model_trainer_config,
-            data_transformation_artifact=data_transformation_artifact,
-        )
+            model_triner_artifact = model_triner.initiate_model_trainer()
 
-        model_triner_artifact = model_triner.initiate_model_trainer()
+            return model_triner_artifact
 
-        return model_triner_artifact
+        except Exception as e:
+            raise USvisaException(e, sys)
 
     def start_model_evaluation(
         self,
         model_trainer_artitfact: ModelTrainerArtifact,
         data_ingestion_artifact: DataIngestionArtifact,
     ) -> ModelEvaluationArtifact:
+        try:
+            model_evaluation = ModelEvaluation(
+                model_evaluation_config=self.model_evaluation_config,
+                data_ingestion_artifact=data_ingestion_artifact,
+                model_trainer_artifact=model_trainer_artitfact,
+            )
 
-        model_evaluation = ModelEvaluation(
-            model_evaluation_config=self.model_evaluation_config,
-            data_ingestion_artifact=data_ingestion_artifact,
-            model_trainer_artifact=model_trainer_artitfact,
-        )
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation
 
-        model_evaluation_artifact = model_evaluation.initiate_model_evaluation
-
-        return model_evaluation_artifact
+            return model_evaluation_artifact
+        except Exception as e:
+            raise USvisaException(e, sys)
 
     def run_pipeline(self):
         try:

@@ -43,6 +43,7 @@ class ModelEvaluationArtifact:
     is_model_accepted: bool
 
 
+@dataclass
 class ModelPusherArtifact:
     bucket_name: str
     s3_model_file_path: str

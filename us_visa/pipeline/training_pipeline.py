@@ -4,6 +4,7 @@ from us_visa.entity.config_entity import (
     DataTransformationConfig,
     ModelTrainerConfig,
     ModelEvaluationConfig,
+    ModelPusherConfig,
 )
 from us_visa.entity.artifact_entity import (
     DataIngestionArtifact,
@@ -11,6 +12,7 @@ from us_visa.entity.artifact_entity import (
     DataTransformationArtifact,
     ModelTrainerArtifact,
     ModelEvaluationArtifact,
+    ModelPusherArtifact,
 )
 
 from us_visa.components.data_ingestion import DataIngestion
@@ -18,6 +20,7 @@ from us_visa.components.data_validation import DataValidation
 from us_visa.components.data_transformation import DataTransformation
 from us_visa.components.model_trainer import ModelTrainer
 from us_visa.components.model_evaluation import ModelEvaluation
+from us_visa.components.model_pusher import ModelPusher
 
 
 import sys
@@ -33,6 +36,8 @@ class TrainingPipeline:
             self.data_transformation_config = DataTransformationConfig()
             self.model_trainer_config = ModelTrainerConfig()
             self.model_evaluation_config = ModelEvaluationConfig()
+            self.model_pusher_config = ModelPusherConfig()
+
         except Exception as e:
             raise USvisaException(e, sys)
 
@@ -121,23 +126,40 @@ class TrainingPipeline:
 
     def start_model_evaluation(
         self,
-        model_trainer_artitfact: ModelTrainerArtifact,
         data_ingestion_artifact: DataIngestionArtifact,
+        model_trainer_artifact: ModelTrainerArtifact,
     ) -> ModelEvaluationArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting modle evaluation
+        """
         try:
             model_evaluation = ModelEvaluation(
                 model_evaluation_config=self.model_evaluation_config,
                 data_ingestion_artifact=data_ingestion_artifact,
-                model_trainer_artifact=model_trainer_artitfact,
+                model_trainer_artifact=model_trainer_artifact,
             )
-
-            model_evaluation_artifact = model_evaluation.initiate_model_evaluation
-
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
             return model_evaluation_artifact
         except Exception as e:
             raise USvisaException(e, sys)
 
-    def run_pipeline(self):
+    def start_model_pusher(
+        self, model_evaluation_artifact: ModelEvaluationArtifact
+    ) -> ModelPusherArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting model pushing
+        """
+        try:
+            model_pusher = ModelPusher(
+                model_evaluation_artifact=model_evaluation_artifact,
+                model_pusher_config=self.model_pusher_config,
+            )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+            return model_pusher_artifact
+        except Exception as e:
+            raise USvisaException(e, sys)
+
+    def run_pipeline(self) -> None:
         try:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(
@@ -151,8 +173,16 @@ class TrainingPipeline:
                 data_transformation_artifact=data_transformation_artifact
             )
             model_evaluation_artifact = self.start_model_evaluation(
-                model_trainer_artitfact=model_trainer_artifact,
+                model_trainer_artifact=model_trainer_artifact,
                 data_ingestion_artifact=data_ingestion_artifact,
             )
+
+            if not model_evaluation_artifact.is_model_accepted:
+                logging.info(f"Model not accepted.")
+                return None
+            model_pusher_artifact = self.start_model_pusher(
+                model_evaluation_artifact=model_evaluation_artifact
+            )
+
         except Exception as e:
             raise USvisaException(e, sys)

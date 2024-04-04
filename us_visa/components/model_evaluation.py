@@ -85,7 +85,7 @@ class ModelEvaluation:
 
             result = EvaluateModelResponse(
                 trained_model_f1_score=trained_model_f1_score,
-                s3_best_model_f1_score=tmp_s3_best_model_f1_score,
+                s3_best_model_f1_score=s3_best_model_f1_score,
                 is_model_accepted=trained_model_f1_score > tmp_s3_best_model_f1_score,
                 difference=trained_model_f1_score - tmp_s3_best_model_f1_score,
             )
